@@ -16,6 +16,7 @@ print("setup")
 cols =  np.array(colour_list[0] + [colour_list[1]] + colour_list[2]) / 255
 N = 100
 cmap = LinearSegmentedColormap.from_list("warming_strips_red_blue", cols, N=N)
+cmap = plt.get_cmap("RdBu_r")
 
 random_data = np.array([i + (random.randint(-5, 5)) for i in range(N)])
 #random_mesh = np.vstack(random_data * N).T
@@ -30,7 +31,7 @@ def lat_lon_to_northings_eastings(lat, lon):
     return northings[0], eastings[0]
 
 
-def get_data(lat, lon, ref_period=["1971", "2000"]):
+def get_data(lat, lon, ref_period=["1901", "2000"]):
     compression = "zstd" if index_uri.split(".")[-1].startswith("zst") else None
     mapper = fsspec.get_mapper("reference://", fo=index_uri, target_options={"compression": compression})
 
@@ -51,7 +52,7 @@ def get_data(lat, lon, ref_period=["1971", "2000"]):
 
     # Subtract reference period
     ref_mean = data.sel(time=slice(*ref_period)).mean()
-    data = (data.sel(time=slice("1901", "2000")) - ref_mean).squeeze().to_series()
+    data = (data.sel(time=slice("1885", "2020")) - ref_mean).squeeze().to_series()
     return data
     
 
