@@ -2,3 +2,6 @@ convertbng
 fsspec
 kerchunk
 mdpdf
+xarray
+numpy
+matplotlib
