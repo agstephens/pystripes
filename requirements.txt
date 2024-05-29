@@ -5,3 +5,4 @@ mdpdf
 xarray
 numpy
 matplotlib
+xhtml2pdf
